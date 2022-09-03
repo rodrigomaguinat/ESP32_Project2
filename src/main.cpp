@@ -1,21 +1,27 @@
 #include <Arduino.h>
 
-#define adc_1 15
-#define adc_2 4
+#define LED 2
+#define Button 5
+
+void Interrupt(){
+  digitalWrite(LED, !digitalRead(LED));
+  Serial.print("Button press");
+}
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(115200);       // Iniciar la comunicación serial a 115200 b/s
-  Serial.println("[Yes I do _:) ]");
+  Serial.begin(115200);
+  pinMode(LED, OUTPUT);
+  pinMode(Button, INPUT_PULLUP);
+  attachInterrupt(Button, Interrupt, FALLING);   // FALLING : Flanco de bajada
+  Serial.println("[init OK :) ]");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.print("ADC Value: ");
-  Serial.println(analogRead(adc_1));
-  Serial.print("ADC Value: ");
-  Serial.println(analogRead(adc_2));
-  delay(1000);
+  for (int i=0; i<1000; i++){
+    delay(10000);
+  }
 }
 
 // Para poder ver el MOonitor Serial, añadimos en el archivo platformio.ini
