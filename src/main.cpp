@@ -1,20 +1,28 @@
 #include <Arduino.h>
 
-#define LED 2
+#define adc_1 15
+#define adc_2 4
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);               // Trabajar a 115200
-  pinMode(LED, OUTPUT);               // Configurar led como salida
-  Serial.println("[ Inicio OK :) ]"); // Mensaje de inicio
+  Serial.begin(115200);       // Iniciar la comunicación serial a 115200 b/s
+  Serial.println("[Yes I do _:) ]");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  digitalWrite(LED, HIGH);
-  Serial.println("LED [ON]");
-  delay(1000);
-  digitalWrite(LED, LOW);
-  Serial.println("LED [OFF]");
+  Serial.print("ADC Value: ");
+  Serial.println(analogRead(adc_1));
+  Serial.print("ADC Value: ");
+  Serial.println(analogRead(adc_2));
   delay(1000);
 }
+
+// Para poder ver el MOonitor Serial, añadimos en el archivo platformio.ini
+/*
+;windows
+;monitor_post = COM3
+;UNIX
+;monitor_port = \dev\ttyUSB1
+monitor_baud = 115200
+*/
